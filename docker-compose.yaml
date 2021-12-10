@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    command: npm run start
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0.27
+    restart: always
+    environment:
+      - MYSQL_DATABASE=node-mysql-docker
+      - MYSQL_ROOT_PASSWORD=12345678
