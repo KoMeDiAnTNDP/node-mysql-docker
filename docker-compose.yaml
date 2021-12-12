@@ -10,11 +10,21 @@ services:
       - ./backend/.env
     ports:
       - "8080:8080"
+    networks:
+      - private
     depends_on:
       - db
   db:
     image: mysql:8.0.27
     restart: always
+    volumes:
+      - db-data:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=node-mysql-docker
       - MYSQL_ROOT_PASSWORD=12345678
+    networks:
+      - private
+volumes:
+  db-data:
+networks:
+  private:
